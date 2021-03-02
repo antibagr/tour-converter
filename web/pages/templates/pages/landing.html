@@ -1,0 +1,330 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Brainer</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'landing/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="{% static 'landing/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'landing/vendor/simple-line-icons/css/simple-line-icons.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+  <!-- Plugin CSS -->
+  <link rel="stylesheet" href="{% static 'landing/device-mockups/device-mockups.min.css' %}">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'landing/css/new-age.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Brainer</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Меню
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#how-it-works">Процесс</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#features">Преимущества</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Соцсети</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="masthead">
+    <div class="container h-100">
+      <div class="row h-100">
+        <div class="col-lg-7 my-auto">
+          <div class="header-content mx-auto">
+            <h1 class="mb-5">Искусственный интеллект делает обучение максимально эффективным. Всегда оставайтесь в фокусе.</h1>
+            <a href="{% url 'pages-home' %}" class="btn btn-outline btn-xl js-scroll-trigger">Начать сегодня</a>
+          </div>
+        </div>
+        <div class="col-lg-5 my-auto">
+          <div class="device-container">
+            <div class="device-mockup iphone6_plus portrait white">
+              <div class="device">
+                <div class="screen">
+                  <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                  <img src="img/demo-screen-1.jpg" class="img-fluid" alt="">
+                </div>
+                <div class="button">
+                  <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="download bg-primary text-center" id="download">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <h2 class="section-heading">Наука Узнавать</h2>
+          <p style="font-size: 1.6em;">Соеденив исследования и передовые технологии, мы создали нечто по-настоящему классное.</p>
+          <div class="badges">
+            <a class="badge-link" href="#"><img src="img/google-play-badge.svg" alt=""></a>
+            <a class="badge-link" href="#"><img src="img/app-store-badge.svg" alt=""></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="how-it-works" style="padding-bottom: 0em;">
+    <div class="container">
+      <nav class="nav nav-pills nav-fill">
+        <a class="nav-item nav-link active role-selector" data-toggle="list" href="#student" role="tab">Я ученик</a>
+        <a class="nav-item nav-link link role-selector" data-toggle="list" href="#teacher" role="tab">Я учитель</a>
+      </nav>
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="student" role="tabpanel">
+          <section id="process" class="process">
+            <div class="container-fluid container-fluid-max">
+              <div class="row text-center py-5">
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <span class="fa-stack fa-2x">
+                    <i class="fas fa-circle fa-stack-2x text-red"></i>
+                    <i class="fas fa-book-open fa-stack-1x text-white"></i>
+                  </span>
+                  <h3 class="mt-3 text-red h4">Что изучаем</h3>
+                  <p>Укажите, что вам интересно изучать сегодня</p>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <span class="fa-stack fa-2x">
+                    <i class="fas fa-circle fa-stack-2x text-red"></i>
+                    <i class="far fa-clock fa-stack-1x text-white"></i>
+                  </span>
+                  <h3 class="mt-3 text-red h4">Выберите время</h3>
+                  <p>Подберите ближайшую удобную дату и время для занятия</p>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <span class="fa-stack fa-2x">
+                    <i class="fas fa-circle fa-stack-2x text-red"></i>
+                    <i class="fas fa-address-card fa-stack-1x text-white"></i>
+                  </span>
+                  <h3 class="mt-3 text-red h4">Выберите репетитора</h3>
+                  <p>Искусственный интеллект генерирует список релевантных преподавателей</p>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <span class="fa-stack fa-2x">
+                    <i class="fas fa-circle fa-stack-2x text-red"></i>
+                    <i class="fas fa-comment-alt fa-stack-1x text-white"></i>
+                  </span>
+                  <h3 class="mt-3 text-red h4">Есть контакт</h3>
+                  <p>Обсудите план занятия с выбранным репетитором и куратором проекта</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="tab-pane" id="teacher" role="tabpanel">
+          <section id="process" class="process">
+            <div class="container-fluid container-fluid-max">
+              <div class="row text-center py-5">
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <span class="fa-stack fa-2x">
+                    <i class="fas fa-circle fa-stack-2x text-red"></i>
+                    <i class="fas fa-book-open fa-stack-1x text-white"></i>
+                  </span>
+                  <h3 class="mt-3 text-red h4">Создайте портфолио</h3>
+                  <p>Заполните информацию о вашем стаже и навыках</p>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <span class="fa-stack fa-2x">
+                    <i class="fas fa-circle fa-stack-2x text-red"></i>
+                    <i class="far fa-clock fa-stack-1x text-white"></i>
+                  </span>
+                  <h3 class="mt-3 text-red h4">Обновляйте расписание</h3>
+                  <p>Указывайте свободные даты, добавляйте и отменяйте слоты занятий</p>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <span class="fa-stack fa-2x">
+                    <i class="fas fa-circle fa-stack-2x text-red"></i>
+                    <i class="fas fa-user-check fa-stack-1x text-white"></i>
+                  </span>
+                  <h3 class="mt-3 text-red h4">Подтвердите заявку</h3>
+                  <p>Принимайте новых учеников и проводите занятия</p>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                  <span class="fa-stack fa-2x">
+                    <i class="fas fa-circle fa-stack-2x text-red"></i>
+                    <i class="fas fa-comment-dollar fa-stack-1x text-white"></i>
+                  </span>
+                  <h3 class="mt-3 text-red h4">Получайте оплату</h3>
+                  <p>После занятия получайте отзывы и оплату любым удобным способом</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container" align="center">
+    <div class="col">
+      <hr>
+        <a href="{% url 'pages-home' %}" class="btn btn-xl cta-button">Попробовать бесплатно</a>
+      <hr>
+    </div>
+  </div>
+
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-heading text-center">
+        <h2>Гениально просто</h2>
+        <p class="text-muted">Познакомьтесь с инновационным методом обучения</p>
+        <hr>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 my-auto">
+          <div class="device-container">
+            <div class="device-mockup iphone6_plus portrait white">
+              <div class="device">
+                <div class="screen">
+                  <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                  <img src="img/demo-screen-1.jpg" class="img-fluid" alt="">
+                </div>
+                <div class="button">
+                  <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 my-auto">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="feature-item">
+                  <i class="icon-screen-smartphone text-primary"></i>
+                  <h3>Управляется легко</h3>
+                  <p class="text-muted">Сервис подстраивается под ваши расписание и предпочтения</p>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="feature-item">
+                  <i class="icon-camera text-primary"></i>
+                  <h3>Умный и быстрый</h3>
+                  <p class="text-muted">Подобрать лучшего репетитора получится за минуту</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="feature-item">
+                  <i class="icon-present text-primary"></i>
+                  <h3>Это бесплатно</h3>
+                  <p class="text-muted">Оплачивайте занятия напрямую репетитору</p>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="feature-item">
+                  <i class="icon-lock-open text-primary"></i>
+                  <h3>Защищён людьми</h3>
+                  <p class="text-muted">Наша служба поддержки решит все спорные ситуации</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="cta">
+    <div class="cta-content">
+      <div class="container">
+        <h2>Узнайте<br>Эффективность</h2>
+        <a href="{% url 'pages-home' %}" class="btn btn-outline btn-xl js-scroll-trigger">Попробовать бесплатно</a>
+      </div>
+    </div>
+    <div class="overlay"></div>
+  </section>
+
+  <section class="contact bg-primary" id="contact">
+    <div class="container">
+      <h2>Мы
+        <i class="fas fa-heart"></i>
+        соцсети</h2>
+      <ul class="list-inline list-social">
+        <li class="list-inline-item social-twitter">
+          <a href="#">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </li>
+        <li class="list-inline-item social-facebook">
+          <a href="#">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </li>
+        <li class="list-inline-item social-telegram">
+          <a href="https://www.t.me/zaitsevamari">
+            <i class="fab fa-telegram fa-lg"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; Brainer {% now "Y" %}. Все права защищены.</p>
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          <a href="#">Privacy</a>
+        </li>
+        <li class="list-inline-item">
+          <a href="#">Terms</a>
+        </li>
+        <li class="list-inline-item">
+          <a href="#">FAQ</a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'landing/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'landing/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'landing/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'landing/js/new-age.min.js' %}"></script>
+
+</body>
+
+</html>

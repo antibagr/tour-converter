@@ -1,0 +1,67 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Дом</title>
+
+
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated and not user.profile.is_activated %}
+<div style="background-image: url('https://mdbootstrap.com/img/new/slides/041.jpg'); background-size:100%;">
+
+
+<style>
+  /* Default height for small devices */
+  #intro-example {
+    height: 500px;
+  }
+
+  /* Height for devices larger than 992px */
+  @media (min-width: 992px) {
+    #intro-example {
+      height: 500px;
+      font-size: 2em;
+    }
+  }
+</style>
+
+
+<!-- Background image -->
+<div
+  id="intro-example"
+  class="p-5 text-center bg-image"
+>
+  <div class="mask" style="background-color: rgba(0, 0, 0, 0.7); ">
+    <div class="d-flex justify-content-center align-items-center h-100">
+      <div class="text-white">
+        <h1 class="mb-3">Обучение открытое заново</h1>
+        <h5 class="mb-4">Попробуйте абсолютную эффективность занятий</h5>
+        <a
+          class="btn btn-outline-light m-2"
+          href="{% url 'account-tutorial' who='student' %}"
+          role="button"
+          rel="nofollow"
+          >Я ученик</a
+        >
+        <a
+          class="btn btn-outline-light m-2"
+          href="{% url 'account-tutorial' who='teacher' %}"
+          role="button"
+          >Я преподаватель</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+  <h1>Ваша лента</h1>
+  <div class="p-4">
+    <h4 class="text-muted">Здесь мы выводим все события участника</h4>
+    <h4 class="text-muted">занятия, новые ученики, новости сервиса и тому подобное :)</h4>
+  </div>
+{% endif %}
+</div>
+{% endblock content %}

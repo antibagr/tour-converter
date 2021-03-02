@@ -1,0 +1,114 @@
+{% load static %}
+{% load thumbnail %}
+
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <meta http-equiv="x-ua-compatible" content="ie=edge" />
+      <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon" />
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+      <!-- Google Fonts Roboto -->
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      />
+      <!-- MDB -->
+      <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <!-- Bootstrap CSS -->
+
+        <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-102898465-4"></script> -->
+        <!-- <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-102898465-4');
+        </script> -->
+
+        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous"> -->
+
+
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/e64c7f7428.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'pages/style.css' %}">
+        <!-- Material Design for Bootstrap -->
+
+        {% block head %}
+        {% endblock head %}
+        {% block style %}
+        {% endblock style %}
+    </head>
+    <body data-spy="scroll" data-target="#navbar" data-offset="72" class="position-relative">
+    <header class="site-header">
+      <div class="my-header">
+        <strong class="my-strong">
+
+      <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="{% url 'pages-home' %}">
+            <img class="rounded-circle account-img" width="50rem" src="{% static 'pages/logo.jpg' %}">
+            Brainer
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        <div class="collapse navbar-collapse" id="main_nav">
+            <ul class="navbar-nav">
+              <li class="nav-item active"> <a class="nav-link" href="{% url 'pages-home' %}">Домой</a> </li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'pages-about' %}">О Brainer</a></li>
+              {% if request.user.is_authenticated and request.user.GET %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'chat' %}">Чат</a></li>
+              {% endif %}
+            </ul>
+        </div> <!-- navbar-collapse.// -->
+        <div class="navbar-nav">
+          {% if request.user.is_authenticated %}
+                <a href="{% url 'account-profile' %}">
+                  <div class="nav-item nav-link">
+                    {% thumbnail request.user.image "30x30" crop="center" as im %}
+                    <!-- <img class="rounded-circle account-img" width="200rem" src="{{ user.profile.image.url }}"> -->
+                      <img class="rounded-circle account-img" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                    {% endthumbnail %}
+                  </div>
+                </a>
+
+              <a class="nav-item nav-link" href="{% url 'account-profile' %}">Профиль</a>
+              <a class="nav-item nav-link" href="{% url 'logout' %}">Выйти</a>
+          {% else %}
+              <a class="nav-item nav-link" href="{% url 'account-sign-up' %}">Начать сегодня</a>
+              <a class="nav-item nav-link" href="{% url 'login' %}">Войти</a>
+          {% endif %}
+        </div>
+      </nav>
+    </strong>
+    </div>
+
+    </header>
+    <main role="main" class="container">
+      <div class="xs-1" align="center">
+          {% if messages %}
+            <!-- <div class="col-xs-1" align="center"> -->
+            <div class="col-md-8">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <p>{{ message }}</p>
+                </div>
+                {% endfor %}
+              </div>
+          {% endif %}
+          {% block content %}{% endblock content %}
+      </div>
+      {% block javascript %}
+      {% endblock javascript %}
+      {% block extra_js %}{% endblock extra_js %}
+
+    </main>
+
+
+    </body>
+</html>

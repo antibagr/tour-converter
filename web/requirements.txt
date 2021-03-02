@@ -1,0 +1,17 @@
+django
+django-crispy-forms
+django-model-utils
+django-widget-tweaks
+djangorestframework
+graphene-django
+django-filter
+python-dotenv
+sorl-thumbnail
+Pillow
+psycopg2-binary
+uvicorn
+gunicorn
+django-phone-field
+phonenumbers==8.12.15
+django-phonenumber-field==5.0.0
+django-intl-tel-input2==0.2.0
