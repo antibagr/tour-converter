@@ -17,6 +17,7 @@ ALLOWED_HOSTS = ["*"] if DEBUG else os.getenv("DJANGO_ALLOWED_HOSTS").split(" ")
 
 INSTALLED_APPS = [
     # Current project apps
+    'converter.apps.ConverterConfig',
 
     # third-party installed,
     # 'phonenumber_field',
@@ -53,7 +54,7 @@ ROOT_URLCONF = 'src.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'templates' ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -154,9 +155,9 @@ STATIC_ROOT = ROOT_DIR / 'static'
 MEDIA_ROOT = ROOT_DIR / 'media'
 MEDIA_URL = '/media/'
 
+# TEMPLATES_DIR = BASE_DIR / 'templates'
 
 """
-# TEMPLATES_DIR = BASE_DIR / 'src' / 'templates'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
