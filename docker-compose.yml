@@ -5,26 +5,22 @@ services:
     restart: always
     build: ./web
     expose:
-      - "5002"
-    links:
-      - postgres:postgres
-      - redis:redis
+      - "8000"
     volumes:
       - web-django:/usr/src/app
       - static_volume:/static
     env_file: .env
     environment:
       DEBUG: 'true'
-    command: /usr/local/bin/gunicorn skillready.wsgi:application -w 2 -b :5002
+    command: python manage.py runserver
     networks:
-      - db_network
       - web_network
 
   nginx:
     restart: always
     build: ./nginx/
     ports:
-      - "5001:5001"
+      - "5000:5000"
     volumes:
       - static_volume:/static
     links:
@@ -32,39 +28,11 @@ services:
     networks:
       - web_network
 
-  postgres:
-    restart: always
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: $PG_USER
-      POSTGRES_PASSWORD: $PG_PASSWORD
-      POSTGRES_DB: $PG_DATABASE
-    ports:
-      - "5433:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data/
-    networks:
-      - db_network
-
-  redis:
-    restart: always
-    image: redis:latest
-    ports:
-      - "6378:6378"
-    volumes:
-      - redisdata:/data
-
-
 # указываются используемые сети
 networks:
-  db_network:
-    # указывается драйвер сети
-    driver: bridge
   web_network:
     driver: bridge
 
 volumes:
   web-django:
   static_volume:
-  pgdata:
-  redisdata:
