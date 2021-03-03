@@ -149,7 +149,7 @@ TIME_ZONE = 'Europe/Moscow'
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = ROOT_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'static'
 
 
 MEDIA_ROOT = ROOT_DIR / 'media'

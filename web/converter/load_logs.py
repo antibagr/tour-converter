@@ -20,24 +20,26 @@ def process_player_line(line: str) -> str:
     # return re.split(MATCH_PLAYER, line)
 
 
-def process_log() -> None:
+def process_log(f) -> None:
+
+    print(type(f))
 
     table = list()
 
-    with open(os.path.join('LOG Фаил клиента', '2.log'), 'r') as f:
-        for i, line in enumerate(f.readlines()):
+    # with open(os.path.join('LOG Фаил клиента', '2.log'), 'r') as f:
+    for line in f.readlines():
 
-            row = process_team_line(line)
+        row = process_team_line(line)
 
-            if len(row) != 4:
-                t = 2
-                row = process_player_line(line)
-            else:
-                t = 1
+        if len(row) != 4:
+            t = 2
+            row = process_player_line(line)
+        else:
+            t = 1
 
 
-            table.append({'type': t, 'content': row})
-        return table
+        table.append({'type': t, 'content': row})
+    return table
             # print(i, row)
 
             # print(f"****LINE {i}****".rjust(20, ' '))
@@ -50,6 +52,3 @@ def process_log() -> None:
             # line = re.sub('\s{2,}?', '', line.strip('\n\t'))
             # print(f"line {i}", line)
         # print(len(f.readlines()))
-
-
-print(process_log())
