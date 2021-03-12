@@ -1,8 +1,8 @@
 import io
+from typing import List
 
 from django.shortcuts import render
 from django.contrib import messages
-from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -17,14 +17,12 @@ def upload_tour(request: RequestType) -> HttpResponse:
 
     if request.method == 'POST' and 'myfile' in request.FILES.keys():
 
-        log_file: InMemoryUploadedFile = request.FILES['myfile']
+        log_files: List[InMemoryUploadedFile] = request.FILES # ['myfile']
 
-        file = io.TextIOWrapper(log_file.file)
+        files = [io.TextIOWrapper(request.FILES[log].file) for log in log_files]
 
         try:
-            logs = process_log(file)
-
-            print(logs)
+            logs = process_log(*files)
 
         except Exception as e:
             messages.warning(request, f"Ошибка конвертера: {e}")

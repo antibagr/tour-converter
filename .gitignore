@@ -5,6 +5,7 @@ migrations/
 *.db
 media/
 static/
+tests/
 
 *.pyo
 *.exe

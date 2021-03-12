@@ -1,15 +1,19 @@
 import os
-
 import re
+
+from _io import TextIOWrapper
+from typing import List
 
 MATCH_DIGITS = re.compile('\D*(\d+)\D*', re.IGNORECASE)
 MATCH_PLAYER = re.compile('NAME:\s+|\s+ID:\s+|\s+KILL:\s+', re.IGNORECASE)
+
 
 def process_team_line(line: str) -> str:
     """
     TeamName:                      Rank: 1                    KillScore: 0                    RankScore: 0                    TotalScore: 0
     """
     return re.findall(MATCH_DIGITS, line)
+
 
 def process_player_line(line: str) -> str:
 
@@ -20,9 +24,9 @@ def process_player_line(line: str) -> str:
     # return re.split(MATCH_PLAYER, line)
 
 
-def process_log(f) -> None:
+def process_log(*files: List[TextIOWrapper]) -> None:
 
-    print(type(f))
+    f = files[0]
 
     table = list()
 
@@ -37,18 +41,16 @@ def process_log(f) -> None:
         else:
             t = 1
 
-
         table.append({'type': t, 'content': row})
     return table
-            # print(i, row)
+    # print(i, row)
 
-            # print(f"****LINE {i}****".rjust(20, ' '))
-            # print()
-            # print(line)
-            # print(row)
-            # print()
+    # print(f"****LINE {i}****".rjust(20, ' '))
+    # print()
+    # print(line)
+    # print(row)
+    # print()
 
-
-            # line = re.sub('\s{2,}?', '', line.strip('\n\t'))
-            # print(f"line {i}", line)
-        # print(len(f.readlines()))
+    # line = re.sub('\s{2,}?', '', line.strip('\n\t'))
+    # print(f"line {i}", line)
+    # print(len(f.readlines()))
