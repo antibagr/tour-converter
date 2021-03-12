@@ -1,56 +1,82 @@
 import os
 import re
+from typing import List, Tuple
 
 from _io import TextIOWrapper
-from typing import List
 
-MATCH_DIGITS = re.compile('\D*(\d+)\D*', re.IGNORECASE)
-MATCH_PLAYER = re.compile('NAME:\s+|\s+ID:\s+|\s+KILL:\s+', re.IGNORECASE)
+MATCH_DIGITS = re.compile(r'\:\s+(\d+)\s+', re.IGNORECASE)
+MATCH_PLAYER = re.compile(r'NAME:\s+|\s+ID:\s+|\s+KILL:\s+', re.IGNORECASE)
+
+
+Player = Tuple[str, str, int, int]
 
 
 def process_team_line(line: str) -> str:
-    """
-    TeamName:                      Rank: 1                    KillScore: 0                    RankScore: 0                    TotalScore: 0
-    """
+
     return re.findall(MATCH_DIGITS, line)
 
 
-def process_player_line(line: str) -> str:
+def process_player_line(line: str) -> List[str]:
 
-    # return [re.sub('\s|\n', '', x) for x in re.findall(MATCH_PLAYER, line.strip())]
-    # return re.findall(MATCH_PLAYER, line.strip())
-    _, name, id, kill = re.split(MATCH_PLAYER, line)
-    return [name, id, re.sub(r'\D', '', kill)]
-    # return re.split(MATCH_PLAYER, line)
+    _, name, id, kills = re.split(MATCH_PLAYER, line)
+
+    kills = re.sub(r'\D', '', kills)
+
+    return [name, int(id), int(kills)]
 
 
-def process_log(*files: List[TextIOWrapper]) -> None:
+def process():
+
+    with open(r'D:\rudie\py\converter\data\4.log') as f:
+        process_single_log_file(f)
+
+
+def process_single_log_file(*files: List[TextIOWrapper]) -> List[Player]:
+    """
+    Parse tournament results and return list of players sorted by
+    Teams and kills
+    """
 
     f = files[0]
 
-    table = list()
+    table = []
 
-    # with open(os.path.join('LOG Фаил клиента', '2.log'), 'r') as f:
+    team = 1
+
     for line in f.readlines():
-
         row = process_team_line(line)
 
         if len(row) != 4:
-            t = 2
-            row = process_player_line(line)
+            row = [f"Команда {team}"] + process_player_line(line)
+            table.append(row)
         else:
-            t = 1
+            team = int(process_team_line(line)[0])
 
-        table.append({'type': t, 'content': row})
-    return table
-    # print(i, row)
+    return sorted(table, key=lambda row: (int(row[0].split()[-1]), -row[-1]))
 
-    # print(f"****LINE {i}****".rjust(20, ' '))
-    # print()
-    # print(line)
-    # print(row)
-    # print()
 
-    # line = re.sub('\s{2,}?', '', line.strip('\n\t'))
-    # print(f"line {i}", line)
-    # print(len(f.readlines()))
+def process_multiple_files(*files: List[TextIOWrapper]) -> List[Player]:
+    """
+    Return list of players sorted by total kills
+    """
+
+    # {ID: [team, nickname, kills], ...}
+    total = {}
+
+    for file in files:
+
+        results_list = process_single_log_file(file)
+
+        # ID is the key of results dict
+        results = {item[2]: item for item in results_list}
+
+        for player_id, player in results.items():
+
+            if player_id in total:
+                total[player_id][-1] += player[-1]
+            else:
+                total[player_id] = player
+
+    total_list = [[k, *v] for k, v in total.items()]
+
+    return sorted(total_list, key=lambda player: -player[-1])

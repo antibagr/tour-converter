@@ -15,3 +15,14 @@ django-phone-field
 phonenumbers==8.12.15
 django-phonenumber-field==5.0.0
 django-intl-tel-input2==0.2.0
+
+
+# Test Dependencies
+
+pytest-django==4.1.0
+pytest-cov==2.11.1        # test coverage information
+pytest-xdist==2.2.1       # run test concurrently
+pytest-pythonpath==0.7.3  # find django settings
+pytest-factoryboy==2.1.0  # Fake model data
+django_dynamic_fixture==3.1.1 # Random generated data
+pytest-mock==3.5.1        # Mocking functions

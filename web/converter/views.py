@@ -1,35 +1,34 @@
 import io
 from typing import List
 
-from django.shortcuts import render
-from django.contrib import messages
 from django.conf import settings
-
+from django.contrib import messages
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.shortcuts import render
+from shortcuts import HttpResponse, RequestType
 
-from shortcuts import RequestType, HttpResponse
-
-
-from converter.load_logs import process_log
+from converter.load_logs import process_single_log_file, process_multiple_files
 
 
 def upload_tour(request: RequestType) -> HttpResponse:
 
     if request.method == 'POST' and 'myfile' in request.FILES.keys():
 
-        log_files: List[InMemoryUploadedFile] = request.FILES # ['myfile']
+        log_files: List[InMemoryUploadedFile] = request.FILES
 
-        files = [io.TextIOWrapper(request.FILES[log].file) for log in log_files]
+        files = [io.TextIOWrapper(log) for log in log_files.getlist('myfile')]
 
         try:
-            logs = process_log(*files)
+            if len(files) == 1:
+                logs = process_single_log_file(*files)
+            else:
+                logs = process_multiple_files(*files)
 
         except Exception as e:
             messages.warning(request, f"Ошибка конвертера: {e}")
 
         else:
-            return render(request, 'converter/converter.html', {'logs': logs} )
-
+            return render(request, 'converter/converter.html', {'logs': logs})
 
     return render(request, 'converter/upload.html')
 

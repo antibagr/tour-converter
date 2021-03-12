@@ -1,8 +1,7 @@
 import os
-from dotenv import load_dotenv
-
-
 from pathlib import Path
+
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 ROOT_DIR = BASE_DIR.parent
@@ -10,7 +9,7 @@ ROOT_DIR = BASE_DIR.parent
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-DEBUG = True # int(os.getenv("DEBUG", default=0))
+DEBUG = True  # int(os.getenv("DEBUG", default=0))
 
 ALLOWED_HOSTS = ["*"] if DEBUG else os.getenv("DJANGO_ALLOWED_HOSTS").split(" ")
 
@@ -54,7 +53,7 @@ ROOT_URLCONF = 'src.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ BASE_DIR / 'templates' ],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,7 +132,6 @@ USE_L10N = True
 
 USE_TZ = True
 TIME_ZONE = 'Europe/Moscow'
-
 
 
 # Static files (CSS, JavaScript, Images)
