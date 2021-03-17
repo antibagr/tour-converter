@@ -79,23 +79,23 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # }
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("PG_DATABASE"),
-        'HOST': os.getenv("PG_HOST"),
-        'USER': os.getenv("PG_USER"),
-        'PASSWORD': os.getenv("PG_PASSWORD"),
-        'PORT': os.getenv("PG_PORT"),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv("PG_DATABASE"),
+#         'HOST': os.getenv("PG_HOST"),
+#         'USER': os.getenv("PG_USER"),
+#         'PASSWORD': os.getenv("PG_PASSWORD"),
+#         'PORT': os.getenv("PG_PORT"),
+#     }
+# }
 
 
 # AUTH_USER_MODEL = 'account.User'
