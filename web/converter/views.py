@@ -1,4 +1,5 @@
 import io
+import logging
 from typing import List
 
 from django.conf import settings
@@ -20,15 +21,26 @@ def upload_tour(request: RequestType) -> HttpResponse:
 
         try:
             if len(files) == 1:
-                logs = process_single_log_file(*files)
+                team_size, logs = process_single_log_file(*files)
+
             else:
-                logs = process_multiple_files(*files)
+                team_size, logs = process_multiple_files(*files)
 
         except Exception as e:
-            messages.warning(request, f"Ошибка конвертера: {e}")
+
+            logging.exception(e, exc_info=True)
+
+            # If converter inject error_line attribute in Exception
+            # then it was raised during iteration through the file
+            if hasattr(e, 'error_line'):
+                err_msg = f"Ошибка в файле {e.filename} на строке {e.error_line}: {e}"
+            else:
+                err_msg = f"Ошибка при обработке файла: {e}"
+
+            messages.warning(request, err_msg)
 
         else:
-            return render(request, 'converter/converter.html', {'logs': logs})
+            return render(request, 'converter/converter.html', {'logs': logs, 'team_size': team_size})
 
     return render(request, 'converter/upload.html')
 

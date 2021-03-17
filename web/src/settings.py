@@ -147,11 +147,10 @@ TIME_ZONE = 'Europe/Moscow'
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
-
-
-MEDIA_ROOT = ROOT_DIR / 'media'
-MEDIA_URL = '/media/'
+STATIC_ROOT = BASE_DIR
+STATICFILES_DIRS = (
+    BASE_DIR / 'static',
+)
 
 # TEMPLATES_DIR = BASE_DIR / 'templates'
 

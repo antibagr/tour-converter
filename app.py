@@ -1,55 +1,48 @@
 import os
+from pathlib import Path
 
-import re
-
-MATCH_DIGITS = re.compile('\D*(\d+)\D*', re.IGNORECASE)
-MATCH_PLAYER = re.compile('NAME:\s+|\s+ID:\s+|\s+KILL:\s+', re.IGNORECASE)
-
-def process_team_line(line: str) -> str:
-    """
-    TeamName:                      Rank: 1                    KillScore: 0                    RankScore: 0                    TotalScore: 0
-    """
-    return re.findall(MATCH_DIGITS, line)
-
-def process_player_line(line: str) -> str:
-
-    # return [re.sub('\s|\n', '', x) for x in re.findall(MATCH_PLAYER, line.strip())]
-    # return re.findall(MATCH_PLAYER, line.strip())
-    _, name, id, kill = re.split(MATCH_PLAYER, line)
-    return [name, id, re.sub(r'\D', '', kill)]
-    # return re.split(MATCH_PLAYER, line)
+from web.converter.load_logs import define_team_size, process_single_log_file
 
 
-def process_log() -> None:
+root = Path(__file__).resolve().parent / 'web' / 'tests' / 'data'
 
-    table = list()
+dirs = [root / 'solo', root / 'duo', root / 'squad']
 
-    with open(os.path.join('LOG Фаил клиента', '2.log'), 'r') as f:
-        for i, line in enumerate(f.readlines()):
+for directory in dirs:
 
-            row = process_team_line(line)
+    print()
+    print(f"{str(directory):-^168}")
+    print()
 
-            if len(row) != 4:
-                t = 2
-                row = process_player_line(line)
-            else:
-                t = 1
+    for file in os.listdir(directory):
+
+        print()
+        print(f"{str(file): ^168}")
+        print()
+
+        with open(directory / file, 'r') as f:
+            result = process_single_log_file(f)
+
+        print(result)
+#
+#
+# with contextlib.ExitStack() as stack:
+#
+#     filenames = [test_data_folder / f'multi{i}.log' for i in range(1, 3)]
+#
+#     files = [stack.enter_context(open(fname, 'r')) for fname in filenames]
+#
+#     results = process_multiple_files(*files)
+
+# import re
+# import itertools
+#
+# regex = re.compile(r'(TeamName:)(.+)', re.IGNORECASE)
+#
+# def render(line: str) -> list:
+#     x = [re.split(r'[\n\r\s{2,}]+', x) for x in trg_str.split(':')]
+#
+#     return list(filter(lambda x: x != '', itertools.chain(*x)))
 
 
-            table.append({'type': t, 'content': row})
-        return table
-            # print(i, row)
-
-            # print(f"****LINE {i}****".rjust(20, ' '))
-            # print()
-            # print(line)
-            # print(row)
-            # print()
-
-
-            # line = re.sub('\s{2,}?', '', line.strip('\n\t'))
-            # print(f"line {i}", line)
-        # print(len(f.readlines()))
-
-
-print(process_log())
+# print(regex.findall(trg_str))

@@ -151,11 +151,10 @@ TIME_ZONE = 'Europe/Moscow'
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = ROOT_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'static'
 
-
-MEDIA_ROOT = ROOT_DIR / 'media'
-MEDIA_URL = '/media/'
+print(STATIC_ROOT)
+print("Loaded")
 
 # TEMPLATES_DIR = BASE_DIR / 'src' / 'templates'
 

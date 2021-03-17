@@ -1,4 +1,8 @@
 {% extends 'converter/upload.html' %}
+{% load static %}
+{% block inner_head %}
+<script src="{% static 'js/sorttable.js' %}"></script>
+{% endblock inner_head %}
 
 {% block table %}
 
@@ -18,13 +22,19 @@ th, td {
 </style>
 <div class="container row p-4">
   <div class="table-responsive">
-    <table class="table mx-auto">
+    <table class="table mx-auto sortable">
       <thead class="thead-light">
         <tr>
-          <th scope="col">Team</th>
+          {% if team_size == 1 %}
+            <th scope="col">Игрок</th>
+          {% else %}
+            <th scope="col">Команда</th>
+          {% endif %}
           <th scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th scope="col">Kills</th>
+          <th scope="col">Kill</th>
+          <th scope="col">KillScore</th>
+          <th scope="col">RankScore</th>
+          <th scope="col">TotalScore</th>
         </tr>
       </thead>
       {% for row in logs %}
