@@ -1,9 +1,12 @@
 {% extends 'converter/upload.html' %}
 {% load static %}
 {% load hide_values %}
-{% block inner_head %}
-<script src="{% static 'js/sorttable.js' %}"></script>
-{% endblock inner_head %}
+{% block head %}
+
+{{ block.super }}
+
+<link rel="stylesheet" href="{% static 'css/sortable-theme-bootstrap.css' %}">
+{% endblock head %}
 
 {% block table %}
 
@@ -23,28 +26,51 @@ th, td {
 </style>
 <div class="container row p-4">
   <div class="table-responsive">
-    <table class="table mx-auto sortable">
+    <table class="table mx-auto sortable-theme-bootstrap w-75" data-sortable>
       <thead class="thead-light">
         <tr>
           {% if team_size == 1 %}
-            <th scope="col">Игрок</th>
+            <th data-sortable="true">Игрок</th>
           {% else %}
-            <th scope="col">Команда</th>
+            <th data-sortable="true">Команда</th>
           {% endif %}
-          <th scope="col">Убито</th>
-          <th scope="col">Всего очков</th>
+          <th data-sortable="true">Убито</th>
+          <th data-sortable="true">Всего очков</th>
         </tr>
       </thead>
-      {% for row in logs %}
       <tbody>
-        {% for item in row|hide_values %}
-        <td>{{ item }}</td>
-        {% endfor %}
-      </tbody>
+      {% for row in logs %}
+        <tr>
+          {% for item in row|hide_values %}
+            <td>{{ item }}</td>
+          {% endfor %}
+        </tr>
       {% endfor %}
+    </tbody>
     </table>
   </div>
 </div>
 
 
+
+
 {% endblock %}
+
+
+{% block javascript %}
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+    // Load sortable table script
+    // Only after page is fully loaded
+
+    var scriptElement=document.createElement('script');
+    scriptElement.type = 'text/javascript';
+    scriptElement.src = "{% static 'plugins/sortable/js/sortable.min.js' %}";
+    document.head.appendChild(scriptElement);
+
+  });
+  //
+</script>
+{% endblock javascript %}
