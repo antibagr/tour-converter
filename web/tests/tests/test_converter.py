@@ -24,6 +24,24 @@ def test_single_file_converter(
 
         assert team_size == team_players
 
+        prev_total_score: int = int(results[1][-1])
+        prev_kills: int = int(results[1][2])
+
+        for team in results[1:]:
+
+            team_score = int(team[-1])
+
+            team_kills = int(team[2])
+
+            assert team_score <= prev_total_score
+
+            if team_score == prev_total_score:
+
+                assert team_kills <= prev_kills
+
+            prev_total_score = team_score
+            prev_kills = team_kills
+
 
 def test_sorting_with_multiple_files(test_data_folder: str):
 
@@ -35,11 +53,19 @@ def test_sorting_with_multiple_files(test_data_folder: str):
 
         team_size, results = process_multiple_files(*files)
 
+        prev_team_total_score = int(results[0][-1])
         prev_team_kills = int(results[0][2])
 
-        for player in results[1:]:
+        for team in results[1:]:
 
-            current_team_kills = int(player[2])
+            team_total_score = int(team[-1])
+            team_kills = int(team[2])
 
-            assert current_team_kills <= prev_team_kills
-            prev_team_kills = current_team_kills
+            assert team_total_score <= prev_team_total_score
+
+            if team_total_score == prev_team_total_score:
+
+                assert team_kills <= prev_team_kills
+
+            prev_team_kills = team_kills
+            prev_team_total_score = team_total_score

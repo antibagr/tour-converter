@@ -131,7 +131,7 @@ def process_single_log_file(file: TextIOWrapper) -> Tuple[int, List[Player]]:
     table = teams_list if team_size == 1 else list(teams_dict.values())
 
     # Sort by kills
-    table.sort(key=lambda x: -int(x[2]))
+    table.sort(key=lambda x: (-int(x[-1]), -int(x[2])))
 
     return team_size, table
 
@@ -168,4 +168,4 @@ def process_multiple_files(*files: List[TextIOWrapper]) -> List[Player]:
 
     total_list = [[k, *v] for k, v in total.items()]
 
-    return team_size, sorted(total_list, key=lambda team: -int(team[2]))
+    return team_size, sorted(total_list, key=lambda team: (-int(team[-1]), -int(team[2])))

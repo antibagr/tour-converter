@@ -1,5 +1,6 @@
 {% extends 'converter/upload.html' %}
 {% load static %}
+{% load hide_values %}
 {% block inner_head %}
 <script src="{% static 'js/sorttable.js' %}"></script>
 {% endblock inner_head %}
@@ -30,16 +31,13 @@ th, td {
           {% else %}
             <th scope="col">Команда</th>
           {% endif %}
-          <th scope="col">ID</th>
-          <th scope="col">Kill</th>
-          <th scope="col">KillScore</th>
-          <th scope="col">RankScore</th>
-          <th scope="col">TotalScore</th>
+          <th scope="col">Убито</th>
+          <th scope="col">Всего очков</th>
         </tr>
       </thead>
       {% for row in logs %}
       <tbody>
-        {% for item in row %}
+        {% for item in row|hide_values %}
         <td>{{ item }}</td>
         {% endfor %}
       </tbody>
