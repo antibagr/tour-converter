@@ -1,8 +1,7 @@
 import os
-from dotenv import load_dotenv
-
-
 from pathlib import Path
+
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 ROOT_DIR = BASE_DIR.parent
@@ -10,25 +9,23 @@ ROOT_DIR = BASE_DIR.parent
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-DEBUG = True # int(os.getenv("DEBUG", default=0))
+DEBUG = True  # int(os.getenv("DEBUG", default=0))
 
 ALLOWED_HOSTS = ["*"] if DEBUG else os.getenv("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 INSTALLED_APPS = [
     # Current project apps
-    'pages.apps.PagesConfig',
-    'account.apps.AccountConfig',
-    'chat.apps.ChatConfig',
+    'converter.apps.ConverterConfig',
 
     # third-party installed,
-    'phonenumber_field',
-    'crispy_forms',
-    'sorl.thumbnail',
-    'widget_tweaks',
-    'rest_framework',
-    'graphene_django',
-    "django_filters",
+    # 'phonenumber_field',
+    # 'crispy_forms',
+    # 'sorl.thumbnail',
+    # 'widget_tweaks',
+    # 'rest_framework',
+    # 'graphene_django',
+    # "django_filters",
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,12 +48,12 @@ MIDDLEWARE = [
     # 'chat.middleware.ActiveUserMiddleware',
 ]
 
-ROOT_URLCONF = 'src.urls'
+ROOT_URLCONF = 'web.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,8 +66,8 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = 'src.asgi.application'
-WSGI_APPLICATION = 'src.wsgi.application'
+ASGI_APPLICATION = 'web.asgi.application'
+WSGI_APPLICATION = 'web.wsgi.application'
 
 # CHANNEL_LAYERS = {
 #     "default": {
@@ -82,26 +79,26 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # }
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("PG_DATABASE"),
-        'HOST': os.getenv("PG_HOST"),
-        'USER': os.getenv("PG_USER"),
-        'PASSWORD': os.getenv("PG_PASSWORD"),
-        'PORT': os.getenv("PG_PORT"),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv("PG_DATABASE"),
+#         'HOST': os.getenv("PG_HOST"),
+#         'USER': os.getenv("PG_USER"),
+#         'PASSWORD': os.getenv("PG_PASSWORD"),
+#         'PORT': os.getenv("PG_PORT"),
+#     }
+# }
 
-AUTH_USER_MODEL = 'account.User'
+
+# AUTH_USER_MODEL = 'account.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -125,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'# 'en-us'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
@@ -135,7 +132,6 @@ USE_L10N = True
 
 USE_TZ = True
 TIME_ZONE = 'Europe/Moscow'
-
 
 
 # Static files (CSS, JavaScript, Images)
@@ -153,10 +149,13 @@ TIME_ZONE = 'Europe/Moscow'
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 
-print(STATIC_ROOT)
-print("Loaded")
+# STATICFILES_DIRS = (
+#     BASE_DIR / 'static',
+# )
 
-# TEMPLATES_DIR = BASE_DIR / 'src' / 'templates'
+# TEMPLATES_DIR = BASE_DIR / 'templates'
+
+"""
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -193,3 +192,4 @@ GRAPHENE = {
     'SCHEMA_INDENT': 2,
 
 }
+"""
