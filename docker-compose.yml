@@ -4,23 +4,29 @@ networks:
   converter_net:
     driver: bridge
 
-
 services:
   web:
+    container_name: web
     build: ./web
-    command: gunicorn web.wsgi --user www-data --bind 0.0.0.0:5000 --workers 3
+    command: gunicorn web.wsgi --user www-data --bind 0.0.0.0:3000 --workers 3
+    ports:
+      - 3000:3000
     env_file:
       - ./.env
-    depends_on:
-      - nginx
     networks:
       - converter_net
 
   nginx:
     image: nginx
+    command: [nginx, '-g', 'daemon off;']
     volumes:
-      - ./nginx/nginx.default:/etc/nginx/sites-available/default
+      - ./nginx/nginx.default:/etc/nginx/nginx.conf
+      - ./web/static:/opt/app/web/static
     ports:
-      - 5002:5001
+      - 5002:80
+    expose:
+      - 5002
+    depends_on:
+      - web
     networks:
       - converter_net
