@@ -1,17 +1,16 @@
-# pull official base image
 FROM python:3.9-buster
 
-# set work directory
-WORKDIR /usr/web/app
+WORKDIR /opt/app
 
-# set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# install dependencies
-RUN pip install --upgrade pip
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+COPY . /opt/app/
 
-# copy project
-COPY . .
+RUN chmod 755 /opt/app/start-server.sh
+
+RUN pip install --upgrade pip && pip install -r requirements.prod.txt
+
+STOPSIGNAL SIGTERM
+
+ENTRYPOINT ["sh", "/opt/app/start-server.sh"]
