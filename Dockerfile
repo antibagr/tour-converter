@@ -15,7 +15,9 @@ COPY . /opt/app/
 
 WORKDIR /opt/app
 
-RUN pip install -r requirements.txt && chown -R www-data:www-data /opt/app
+RUN apt-get update && apt-get install nginx vim -y --no-install-recommends &&
+pip install -r requirements.prod.txt && chown -R www-data:www-data /opt/app &&
+  chmod -X /opt/app/start-server.sh
 
 EXPOSE 8020
 STOPSIGNAL SIGTERM
