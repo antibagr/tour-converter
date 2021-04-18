@@ -1,7 +1,6 @@
 import re
-from typing import List, Tuple, Dict
 from pprint import pprint
-
+from typing import Dict, List, Tuple
 
 from _io import TextIOWrapper
 
@@ -53,13 +52,11 @@ def process_team_line(line: str, team_size: int) -> List[str]:
 
         return re.findall(MATCH_DIGITS, line)
 
-    else:
+    team, *other = re.split(MATCH_TEAM, line)
 
-        team, *other = re.split(MATCH_TEAM, line)
+    other = (re.sub(r'\D', '', x) for x in other)
 
-        other = (re.sub(r'\D', '', x) for x in other)
-
-        return [team.split(':')[-1].strip(), *other]
+    return [team.split(':')[-1].strip(), *other]
 
 
 def process_player_line(line: str) -> List[str]:
@@ -161,7 +158,8 @@ def process_multiple_files(*files: List[TextIOWrapper]) -> List[Player]:
             if team in total:
 
                 team_id = team_result.pop(0)
-                total[team] = [team_id] + [int(x) + int(y) for x, y in zip(total[team][1:], team_result)]
+                total[team] = [team_id] + [int(x) + int(y)
+                                           for x, y in zip(total[team][1:], team_result)]
 
             else:
                 total[team] = team_result
