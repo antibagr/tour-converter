@@ -1,26 +1,15 @@
-# Dockerfile
-
-# FROM directive instructing base image to build upon
 FROM python:3.9-buster
-
-RUN apt-get update && apt-get install nginx vim -y --no-install-recommends
-
-COPY nginx/nginx.default /etc/nginx/sites-available/default
-
-RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-    && ln -sf /dev/stderr /var/log/nginx/error.log
-
-COPY . /opt/app/
 
 WORKDIR /opt/app
 
-RUN apt-get update && apt-get install nginx vim -y --no-install-recommends && \
-  chown -R www-data:www-data /opt/app && \
-  chmod 755 /opt/app/start-server.sh
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+COPY . /opt/app/
+
+RUN chmod 755 /opt/app/start-server.sh
 
 RUN pip install -r requirements.prod.txt
-
-EXPOSE 8020
 
 STOPSIGNAL SIGTERM
 
