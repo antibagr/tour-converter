@@ -2,7 +2,7 @@
 FROM python:3.9-buster
 
 # set work directory
-WORKDIR /usr/src/app
+WORKDIR /usr/web/app
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1

@@ -3,7 +3,6 @@
 # FROM directive instructing base image to build upon
 FROM python:3.9-buster
 
-
 RUN apt-get update && apt-get install nginx vim -y --no-install-recommends
 
 COPY nginx/nginx.default /etc/nginx/sites-available/default
@@ -15,10 +14,14 @@ COPY . /opt/app/
 
 WORKDIR /opt/app
 
-RUN apt-get update && apt-get install nginx vim -y --no-install-recommends &&
-pip install -r requirements.prod.txt && chown -R www-data:www-data /opt/app &&
-  chmod -X /opt/app/start-server.sh
+RUN apt-get update && apt-get install nginx vim -y --no-install-recommends && \
+  chown -R www-data:www-data /opt/app && \
+  chmod 755 /opt/app/start-server.sh
+
+RUN pip install -r requirements.prod.txt
 
 EXPOSE 8020
+
 STOPSIGNAL SIGTERM
-CMD ["/opt/app/start-server.sh"]
+
+ENTRYPOINT ["sh", "/opt/app/start-server.sh"]
