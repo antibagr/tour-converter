@@ -13,4 +13,4 @@ RUN pip install --upgrade pip && pip install -r requirements.prod.txt
 
 STOPSIGNAL SIGTERM
 
-ENTRYPOINT ["sh", "/opt/app/start-server.sh"]
+# ENTRYPOINT ["sh", "/opt/app/start-server.sh"]

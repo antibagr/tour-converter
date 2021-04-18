@@ -1,19 +1,26 @@
 version: "3.1"
 
+networks:
+  converter_net:
+    driver: bridge
+
+
 services:
   web:
     build: ./web
-    command: gunicorn web.wsgi --user www-data --bind 0.0.0.0:8010 --workers 3
-    ports:
-      - 80:8010
+    command: gunicorn web.wsgi --user www-data --bind 0.0.0.0:5000 --workers 3
     env_file:
       - ./.env
     depends_on:
       - nginx
+    networks:
+      - converter_net
 
   nginx:
     image: nginx
     volumes:
-      ./nginx/nginx.default:/etc/nginx/nginx.conf:ro
+      - ./nginx/nginx.default:/etc/nginx/nginx.conf:ro
     ports:
-      - 80:8020
+      - 5002:5001
+    networks:
+      - converter_net

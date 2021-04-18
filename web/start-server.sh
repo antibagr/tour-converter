@@ -3,5 +3,5 @@
 if [ -n "$DJANGO_SUPERUSER_USERNAME" ] && [ -n "$DJANGO_SUPERUSER_PASSWORD" ] ; then
     (cd martor_demo; python manage.py createsuperuser --no-input)
 fi
-(cd web; gunicorn web.wsgi --user www-data --bind 0.0.0.0:8010 --workers 3) &
-nginx -g "daemon off;"
+(cd web; gunicorn web.wsgi --user www-data --bind 0.0.0.0:8010 --workers 3) 
+# & nginx -g "daemon off;"
