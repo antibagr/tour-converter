@@ -13,6 +13,8 @@ services:
       - 3000:3000
     env_file:
       - ./.env
+    volumes:
+      - ./web/static:/opt/app/web/static
     networks:
       - converter_net
 
@@ -21,7 +23,7 @@ services:
     command: [nginx, '-g', 'daemon off;']
     volumes:
       - ./nginx/nginx.default:/etc/nginx/nginx.conf
-      - ./web/static:/opt/app/web/static
+      - ./web/static:/static
     ports:
       - 5002:80
     expose:
