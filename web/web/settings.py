@@ -9,7 +9,7 @@ ROOT_DIR = BASE_DIR.parent
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-DEBUG = True  # int(os.getenv("DEBUG", default=0))
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ["*"] if DEBUG else os.getenv("DJANGO_ALLOWED_HOSTS").split(" ")
 
