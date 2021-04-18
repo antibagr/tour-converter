@@ -25,7 +25,7 @@ services:
       - ./nginx/nginx.default:/etc/nginx/nginx.conf
       - ./web/static:/static
     ports:
-      - 5002:80
+      - 80:80
     expose:
       - 5002
     depends_on:
