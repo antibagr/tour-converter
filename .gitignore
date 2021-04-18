@@ -4,7 +4,7 @@ migrations/
 *.sqlite3
 *.db
 media/
-static/
+# static/
 
 *.pyo
 *.exe
