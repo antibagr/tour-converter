@@ -19,7 +19,7 @@ services:
   nginx:
     image: nginx
     volumes:
-      - ./nginx/nginx.default:/etc/nginx/nginx.conf:ro
+      - ./nginx/nginx.default:/etc/nginx/sites-available/default
     ports:
       - 5002:5001
     networks:
